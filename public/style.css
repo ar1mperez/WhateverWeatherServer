@@ -8,13 +8,13 @@
   margin-left: 20%;
   margin-right: 20%;
   border: solid;
-  margin-bottom:5%;
+  margin-bottom:2%;
 }
 
 .weather-box{
   margin-left: 20%;
   margin-right: 20%;
-  padding-top: 5%;
+  padding-top: 2%;
   /*border: solid;*/
 
 }
@@ -24,4 +24,13 @@
     min-height: 100px;
     max-width: 300px;
     min-width: 100px;
+}
+
+.weather-description{
+  padding-top: 2%;
+  font-family: 'Fredoka One', cursive;
+  margin-left: 20%;
+  margin-right: 20%;
+
+
 }
