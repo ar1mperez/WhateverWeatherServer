@@ -24,6 +24,10 @@ app.get('/', (req, res) => {
 });
 // [END hello_world]
 
+const api = require('./api');
+//console.log(api);
+app.get('/api/', api.compute);
+
 if (module === require.main) {
   // [START server]
   // Start the server
