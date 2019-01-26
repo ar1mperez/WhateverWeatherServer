@@ -11,19 +11,24 @@
   margin-bottom:2%;
 }
 
+
+.image-container {
+
+}
 .weather-box{
-  margin-left: 20%;
-  margin-right: 20%;
+  /*margin-left: 20%;
+  margin-right: 20%;*/
   padding-top: 2%;
+  display: inline-block;
   /*border: solid;*/
 
 }
 
 .clothing-image {
     max-height: 300px;
-    min-height: 100px;
+    min-height: 50px;
     max-width: 300px;
-    min-width: 100px;
+    min-width: 50px;
 }
 
 .weather-description{
