@@ -23,35 +23,46 @@ function getCity() {
 
 function getWeatherData() {
     var data = '';
+    var end = false;
 
     http.get([weatherApi, getCity()].join(''), (resp) => {
         resp.on('data', (chunk) => {
             data += chunk;
-            //console.log('Hello?');
+            console.log('Hello?');
         });
 
         resp.on('end', () => {
-            //console.log('end of stream');
-            return JSON.parse(data);
+            console.log('end of stream');
+            console.log(typeof(data));
+            //return JSON.parse(data);
+            
+            //return data;
         });
     }).on('error', (err) => {
-        //console.log('failed');
-        return null;
+        console.log('failed');
+        return;// null;
+        //end = true;
     });
+    
+    console.log(data);
+    return data; 
 }
 
 module.exports = {
     compute: function (req, res) {
-
-        var weatherData = getWeatherData();
-        if (weatherData === null) {
-            res.status(500).send('Failed to fetch weather data');
-        }
-        else {
-            res.status(200).send(weatherData);
-        }
-        //return res.status(200).send('Welcome');
-
-        //console.log(data);
+        var data = '';
+        
+        http.get([weatherApi, getCity()].join(), (resp) => {
+            resp.on('data', (chunk) => {
+                data += chunk;
+            });
+            
+            resp.on('end', () => {
+                res.status(200).send(data);
+            });
+        }).on('error', (err) => {
+            console.log('Failed');
+            return;
+        });
     }
 }
