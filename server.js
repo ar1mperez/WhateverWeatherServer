@@ -14,13 +14,19 @@
 'use strict';
 
 const express = require('express');
-
 const app = express();
+const path = require("path");
+app.use(express.static(__dirname + "/public"));
 
-// [START hello_world]
-// Say hello!
-app.get('/', (req, res) => {
-  res.status(200).send('Hello, world!');
+// Send HTML at root, do not change
+app.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/index.html'));
+});
+
+// Send Style, do not change
+app.get('/style.css',function(req,res){
+  //Feel free to change the contents of style.css to prettify your Web app
+  res.sendFile(path.join(__dirname+'/public/style.css'));
 });
 // [END hello_world]
 

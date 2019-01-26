@@ -1,0 +1,36 @@
+.title-text {
+  font-family: 'Righteous', cursive;/*'Baloo Thambi', cursive;*/
+  font-size: 500%;
+  color: #42aaf4;
+}
+
+.underline-box{
+  margin-left: 20%;
+  margin-right: 20%;
+  border: solid;
+  margin-bottom:2%;
+}
+
+.weather-box{
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-top: 2%;
+  /*border: solid;*/
+
+}
+
+.clothing-image {
+    max-height: 300px;
+    min-height: 100px;
+    max-width: 300px;
+    min-width: 100px;
+}
+
+.weather-description{
+  padding-top: 2%;
+  font-family: 'Fredoka One', cursive;
+  margin-left: 20%;
+  margin-right: 20%;
+
+
+}
