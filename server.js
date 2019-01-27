@@ -28,11 +28,14 @@ app.get('/style.css',function(req,res){
   //Feel free to change the contents of style.css to prettify your Web app
   res.sendFile(path.join(__dirname+'/public/style.css'));
 });
-// [END hello_world]
 
-const api = require('./api');
-//console.log(api);
-app.get('/api/', api.compute);
+app.get('/ghome', function(req,res){
+  let resultObj = {
+    "fulfillmentText": "You should wear swag money";
+  }
+  res.send(resultObj);
+});
+// [END hello_world]
 
 if (module === require.main) {
   // [START server]
