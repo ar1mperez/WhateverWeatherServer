@@ -56,8 +56,8 @@ app.post('/ghome', (req,res) => {
             }
 
             res.send({
-                'fulfillmentText': weather,
-                'fulfillmentMessages': [{"text": {"text": ["Montreal"]}}],
+                'fulfillmentText': "weather",
+                'fulfillmentMessages': [{"text": {"text": [data.city]}}],
                 'source': 'This is the source'
             });
         });
