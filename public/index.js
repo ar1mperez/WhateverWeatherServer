@@ -42,7 +42,7 @@ $( document ).ready(function() {
           div.append(imgContainer);
 
           let txt = document.getElementById("clothing-suggest");
-          txt.innerHTML += data.topLayers[i].Name + ", ";
+          txt.innerHTML += " " + data.topLayers[i].Name + ",";
 
       }
     }
@@ -64,10 +64,11 @@ $( document ).ready(function() {
           div.append(imgContainer);
 
           let txt = document.getElementById("clothing-suggest");
-          txt.innerHTML += data.bottomLayers[i].Name + " ";
+          txt.innerHTML += " " +  data.bottomLayers[i].Name + ",";
       }
     }
 
+    document.getElementById("clothing-suggest").innerHTML = document.getElementById("clothing-suggest").innerHTML.slice(0, -1);
     let textDiv = document.getElementById("weather-text");
     if (data.weather == "Raining") {
       //let text = document.createElement("h4");
