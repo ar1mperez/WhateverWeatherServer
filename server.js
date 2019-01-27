@@ -74,7 +74,7 @@ app.post('/ghome', (req,res) => {
             }
 
             res.send({
-                'fulfillmentText': "Today, in " + data.city + ". It will be " + data.weather + " at a temperature of " + data.baseTemperature + " celcius. Before you go out, you will need to bring a " + topLayers + bottomLayers + weather + ". " + walk,
+                'fulfillmentText': "weather",
                 'fulfillmentMessages': [{"text": {"text": [data.city]}}],
                 'source': 'This is the source'
             });
