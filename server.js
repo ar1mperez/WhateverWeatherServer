@@ -29,8 +29,7 @@ app.get('/style.css',function(req,res){
     res.sendFile(path.join(__dirname+'/public/style.css'));
 });
 
-app.get('/ghome', function(req,res){
-
+app.post('/ghome', function(req,res){
     res.send({
         'fulfillmentText': ' ',
         'fulfillmentMessages': [{"text": {"text": ["Swag Money"]}}],
