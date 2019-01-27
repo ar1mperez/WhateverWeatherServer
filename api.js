@@ -4,24 +4,45 @@ const weatherApi = 'http://api.openweathermap.org/data/2.5/weather?appid=47f1072
 const connectionString = 'whateverweather:us-east1:whateverweather';
 const mysql = require('mysql');
 
-function getCity() {
-    /*var con = mysql.createConnection({
-        host: '',
-        user: '',
-        password: ''
+function openDbConnection() {
+    var con = mysql.createConnection({
+        host: '35.237.213.41',
+        user: 'ww',
+        password: 'Password1',
+        database: 'whatever_weather'
     });
-
-    con.connect(function (err) {
+    
+    con.connect((err) => {
         if (err) throw err;
         console.log('Connected');
     });
+    
+    return con;
+}
 
-    con.execute*/
-    return 'Montreal';
+function getCity() {
+    return new Promise(function (resolve, reject) {
+        var con = openDbConnection();
+        
+        var sql = 'SELECT * FROM Configuration WHERE Name = \'City\';';
+        con.query(sql, function (error, results, fieds) {
+            if (error) return reject(error);
+            resolve(results[0]);
+        });
+    });
 }
 
 function getCountry() {
-    return 'CA';
+    //return 'CA';
+    return new Promise(function (resolve, reject) {
+        var con = openDbConnection();
+        
+        var sql = 'SELECT * FROM Configuration WHERE Name = \'Country\';';
+        con.query(sql, function (error, results, fields) {
+            if (error) return reject(error);
+            resolve(results[0]);
+        });
+    });
 } 
 
 function getIdealTemp() {
@@ -45,94 +66,84 @@ function calculateEffectiveWeather(temp, temperatureData) {
 }
 
 function getClothes() {
-    var con = mysql.createConnection({
-        host: '35.237.213.41',
-        user: 'ww',
-        password: 'Password1'
-    });
-    
-    con.connect((err) => {
-        if (err) throw err;
-        console.log('Connected');
-    });
-    
-    var sql = "SELECT * FROM Clothes";
-    con.query(sql, function (error, results, fields) {
-        if (error) throw error;
+    return new Promise(function (resolve, reject) {
+        var con = openDbConnection();
         
-        console.log(results);
+        var sql = 'SELECT * FROM Clothes;';
+        con.query(sql, function (error, results, fields) {
+            if (error) return reject(error);
+            resolve(results);
+        });
     });
 }
 
 module.exports = {
     compute: function (req, res) {
-        var weatherData = '';
 
-        http.get([weatherApi, getCity()].join(''), (resp) => {
-            resp.on('data', (chunk) => {
-                weatherData += chunk;
+        getCity().then(function (cityRow) {
+            getCountry().then(function (countryRow) {                
+                var weatherData = '';
+                //console.log([weatherApi, cityRow.Value, ',', countryRow.Value].join(''));
+                http.get([weatherApi, cityRow.Value, ',', countryRow.Value].join(''), (resp) => {
+                    resp.on('data', (chunk) => {
+                        weatherData += chunk;
+                    });
+
+                    resp.on('end', () => {
+                        weatherData = JSON.parse(weatherData);
+
+                        const idealTemp = getIdealTemp();
+                        
+                        //console.log(weatherData);
+
+                        var baseTemp = Number(kelvinToCelsius(weatherData.main.temp).toFixed(1));
+                        var effectiveTemp = calculateEffectiveWeather(baseTemp, weatherData);
+                        var deltaTemp = idealTemp - effectiveTemp;
+                        
+                        var targetN = Number(deltaTemp / 2).toFixed(1);
+                        
+                        console.log(targetN);
+                        
+                        //var layers = { null, null, null };
+                        getClothes().then(function (clothesRows) {
+                            console.log(clothesRows);
+                        });
+                        
+                        //for (var i = 0; i < 
+                        
+                        resultObj = {
+                            'city' : cityRow.Value,
+                            'weather': 'Clouds',
+                            'targetTemperature': 21,
+                            'achievedTemperature': 21,
+                            'baseTemperature': 17,
+                            'topLayers': [
+                                null,
+                                {
+                                    'Name': 'Red Long-Sleeved Shirt',
+                                    'TempInc': 2
+                                },
+                                null
+                            ],
+                            'bottomLayers': [
+                                null,
+                                {
+                                    'Name': 'Big Blue Pants',
+                                    'TempInc': 2
+                                },
+                                null
+                            ],
+                        };
+                        /*console.log(weatherData);
+                        console.log();
+                        console.log(resultObj);*/
+                        res.status(200).send(resultObj);
+                    });
+                }).on('error', (err) => {
+                    console.log('Failed');
+                    return;
+                });
             });
-
-            resp.on('end', () => {
-                weatherData = JSON.parse(weatherData);
-
-                const idealTemp = getIdealTemp();
-
-                var baseTemp = Number(kelvinToCelsius(weatherData.main.temp).toFixed(1));
-                var effectiveTemp = calculateEffectiveWeather(baseTemp, weatherData);
-                var deltaTemp = idealTemp - effectiveTemp;
-                
-                var targetN = Number(deltaTemp / 2).toFixed(1);
-                
-                console.log(targetN);
-                
-                //var layers = { null, null, null };
-                //var clothes = getClothes();
-                
-                //for (var i = 0; i < 
-                
-                
-
-                /*resultObj = {
-                    'city': weatherData.name,
-                    'weather': weatherData.weather[0].main,
-                    "temp": Number(kelvinToCelsius(weatherData.main.temp).toFixed(2)),
-                    //'targetTemperature':
-                    //'data': weatherData.main,
-                    'wind': weatherData.wind
-                };*/
-                
-                resultObj = {
-                    'city' : 'Montreal',
-                    'weather': 'Clouds',
-                    'targetTemperature': 21,
-                    'achievedTemperature': 21,
-                    'baseTemperature': 17,
-                    'topLayers': [
-                        null,
-                        {
-                            'Name': 'Red Long-Sleeved Shirt',
-                            'TempInc': 2
-                        },
-                        null
-                    ],
-                    'bottomLayers': [
-                        null,
-                        {
-                            'Name': 'Big Blue Pants',
-                            'TempInc': 2
-                        },
-                        null
-                    ],
-                };
-                /*console.log(weatherData);
-                console.log();
-                console.log(resultObj);*/
-                res.status(200).send(resultObj);
-            });
-        }).on('error', (err) => {
-            console.log('Failed');
-            return;
         });
     }
 }
