@@ -86,11 +86,10 @@ function getClothes() {
     });
 }
 
-module.exports = {
-    const maxVariance = 2;
-    
+module.exports = {    
     compute: function (req, res) {
-
+        const maxVariance = 2;
+        
         getCity().then(function (cityRow) {
             getCountry().then(function (countryRow) {                
                 var weatherData = '';
@@ -127,6 +126,62 @@ module.exports = {
                             }
                             
                             console.log(layers);
+                            
+                            for (var i = 0; i < layers.length; i++) {
+                                for (var j = 0; j < layers[i].length; j++) {
+                                    layers[i][j].sort(function (a, b) { return a.TempInc <= b.TempInc });
+                                }
+                            }
+                            
+                            var configurations = [];
+                            
+                            for (var i = 0; i < layers.length; i++) {
+                                configurations.push([]);
+                                var t1Index = layers[i][0].length;
+                                var t2Index = layers[i][1].length;
+                                var t3Index = layers[i][2].length;
+                                
+                                while (t3Index >= 0) {
+                                    var conf = [ ];
+                                    if (!(t1Index >= layers[i][0].length)) {
+                                        conf.push(layers[i][0][t1Index]);
+                                    }
+                                    if (!(t2Index >= layers[i][1].length)) {
+                                        conf.push(layers[i][1][t2Index]);
+                                    }
+                                    if (!(t3Index >= layers[i][2].length)) {
+                                        conf.push(layers[i][2][t3Index]);
+                                    }
+                                    
+                                    if (conf.length) {
+                                        var confN = conf.reduce(function (total, val) { return total + val.IncTemp; });
+                                        var hasAcceptingConfig = false;
+                                        
+                                        if (configurations[i].length === 0) {
+                                            configurations[i].push(conf);
+                                        }
+                                        else if (Math.abs(targetN - configurations[i][0].reduce(function (total, val) { return total + val.incTemp; })) < Math.abs(targetN - conf.reduce(function (total, val) { return total + val.incTemp; }))) {
+                                            configuration[i] = [ conf ];
+                                        }
+                                        else if (Math.abs(targetN - configurations[i][0].reduce(function (total, val) { return total + val.incTemp; })) === Math.abs(targetN - conf.reduce(function (total, val) { return total + val.incTemp; }))) {
+                                            configuration[i].push(conf);
+                                        }
+                                        
+                                    }
+                                    
+                                    
+                                    t1Index--;
+                                    if (t1Index < 0) {
+                                        t1Index = layers[i][0].length;
+                                        t2Index--;
+                                    }
+                                    if (t2Index < 0) {
+                                        t2Index = layers[i][1].length;
+                                        t3Index--;
+                                    }
+                                }
+                            }
+                            
                         }).catch(function (err) {
                             console.log(err);
                         });
@@ -160,7 +215,11 @@ module.exports = {
                     console.log('Failed');
                     return;
                 });
+            }).catch(function (err) {
+                console.log(err);
             });
+        }).catch(function (err) {
+            console.log(err);
         });
     }
 }
