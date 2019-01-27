@@ -60,6 +60,13 @@ $( document ).ready(function() {
           div.append(imgContainer);
       }
     }
+
+    let textDiv = document.getElementById("weather-text");
+    if (data.weather == "Raining") {
+      //let text = document.createElement("h4");
+      //textDiv.append()
+      textDiv.innerHTML+="<h4> It's raining, bring an umbrella! <img src = 'images/umbrella.png'/></h4>";
+    }
     /*
     imgContainer.innerHTML +=
     '<div class="weather-box">\
@@ -68,7 +75,7 @@ $( document ).ready(function() {
     <img src = "images/3.png" class="rounded mx-auto d-block embed-responsive-16by9 clothing-image"/></div>\
     ';
     */
-    div.append(imgContainer);
+    //div.append(imgContainer);
     /*
     let i = 0;
     for (i = 0; i < 3; i++) {

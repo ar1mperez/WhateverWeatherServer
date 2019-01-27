@@ -104,7 +104,7 @@ module.exports = {
 
                 resultObj = {
                     'city' : 'Montreal',
-                    'weather': 'Clouds',
+                    'weather': 'Raining',
                     'targetTemperature': 21,
                     'achievedTemperature': 21,
                     'baseTemperature': 17,
