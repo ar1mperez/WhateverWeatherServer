@@ -52,12 +52,12 @@ app.post('/ghome', (req,res) => {
                     weather += "umbrella"
                     break;
                 default:
-                    weather = "Enjoy the weather";
+                    weather = "The weather is neither rainy nor snowy.";
             }
 
             res.send({
-                'fulfillmentText': weather,
-                'fulfillmentMessages': [{"text": {"text": ["Montreal"]}}],
+                'fulfillmentText': "Today, in " + data.city + ". " + weather,
+                'fulfillmentMessages': [{"text": {"text": [data.city]}}],
                 'source': 'This is the source'
             });
         });
