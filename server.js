@@ -31,9 +31,9 @@ app.get('/style.css', (req, res) => {
 
 app.post('/ghome', (req,res) => {
     res.send({
-        'fulfillmentText': ' ',
-        'fulfillmentMessages': [{"text": {"text": ["Swag Money"]}}],
-        'source': ''
+        'fulfillmentText': 'This is fulfillment text',
+        'fulfillmentMessages': [{"text": {"text": ["Montreal"]}}],
+        'source': 'This is the source'
     });
 });
 // [END hello_world]
