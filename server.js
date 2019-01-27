@@ -32,7 +32,7 @@ app.get('/style.css',function(req,res){
 app.post('/ghome', function(req,res){
     res.send({
         'fulfillmentText': ' ',
-        'fulfillmentMessages': [{"text": {"text": ["Swag Money"]}}],
+        'fulfillmentMessages': [{"text": {"text": ["Montreal"]}}],
         'source': ''
     });
 });
