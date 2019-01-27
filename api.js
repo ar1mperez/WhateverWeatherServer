@@ -187,9 +187,9 @@ module.exports = {
                                 resultObj = {
                                     'city' : cityRow.Value,
                                     'weather': weatherData.weather[0].main,
-                                    'targetTemperature': idealTemp,
-                                    'achievedTemperature': calculateEffectiveWeather(kelvinToCelsius(weatherData.main.temp), weatherData) + Math.abs(configurations[0][0].reduce(function (total, val) { return total + val.IncTemp; })),
-                                    'baseTemperature': kelvinToCelsius(weatherData.main.temp),
+                                    'targetTemperature': Number(idealTemp).toFixed(1),
+                                    'achievedTemperature': Number(calculateEffectiveWeather(kelvinToCelsius(weatherData.main.temp), weatherData) + Math.abs(configurations[0][0].reduce(function (total, val) { return total + val.IncTemp; }))).toFixed(1),
+                                    'baseTemperature': Number(kelvinToCelsius(weatherData.main.temp)).toFixed(1),
                                     'topLayers': configurations[0][0],
                                     'bottomLayers': configurations[1][0]
                                 };
