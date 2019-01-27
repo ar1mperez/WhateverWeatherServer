@@ -32,7 +32,7 @@ $( document ).ready(function() {
           imgContainer.classList.add('weather-box');
 
           let newImage = document.createElement("img");
-          newImage.src = "images/"+data.topLayers[i].TempInc+".png";
+          newImage.src = "images/"+data.topLayers[i].TypeID+".png";
           newImage.classList.add("rounded");
           newImage.classList.add("mx-auto");
           newImage.classList.add("d-block");
@@ -54,7 +54,7 @@ $( document ).ready(function() {
           imgContainer.classList.add('weather-box');
 
           let newImage = document.createElement("img");
-          newImage.src = "images/"+data.bottomLayers[i].TempInc+".png";
+          newImage.src = "images/"+data.bottomLayers[i].TypeID+".png";
           newImage.classList.add("rounded");
           newImage.classList.add("mx-auto");
           newImage.classList.add("d-block");
