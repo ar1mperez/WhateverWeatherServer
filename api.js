@@ -113,6 +113,7 @@ module.exports = {
 
                             var targetN = Number(deltaTemp / 2).toFixed(1);
 
+                            console.log("this is the target n");
                             console.log(targetN);
 
 
@@ -184,14 +185,15 @@ module.exports = {
                                 }
                                 
                                 console.log(weatherData);
+                                console.log(configurations[0].length);
                                 resultObj = {
                                     'city' : cityRow.Value,
                                     'weather': weatherData.weather[0].main,
                                     'targetTemperature': Number(idealTemp).toFixed(1),
                                     'achievedTemperature': Number(calculateEffectiveWeather(kelvinToCelsius(weatherData.main.temp), weatherData) + Math.abs(configurations[0][0].reduce(function (total, val) { return total + val.IncTemp; }))).toFixed(1),
                                     'baseTemperature': Number(kelvinToCelsius(weatherData.main.temp)).toFixed(1),
-                                    'topLayers': configurations[0][0],
-                                    'bottomLayers': configurations[1][0]
+                                    'topLayers': configurations[0],
+                                    'bottomLayers': configurations[1]
                                 };
                                 console.log(resultObj);
                                 res.status(200).send(resultObj);
