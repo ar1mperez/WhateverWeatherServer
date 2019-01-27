@@ -16,6 +16,7 @@
 const express = require('express');
 const app = express();
 const path = require("path");
+const http = require ('http');
 app.use(express.static(__dirname + "/public"));
 
 // Send HTML at root, do not change
@@ -30,10 +31,39 @@ app.get('/style.css', (req, res) => {
 });
 
 app.post('/ghome', (req,res) => {
-    res.send({
-        'fulfillmentText': 'This is fulfillment text',
-        'fulfillmentMessages': [{"text": {"text": ["Montreal"]}}],
-        'source': 'This is the source'
+
+    var data = ''; 
+
+    http.get('http://' + req.headers.host + '/api', (resp) => {
+        resp.on('data', (chunk) => {
+            data += chunk;
+        });
+
+        resp.on('end', () => {
+            data = JSON.parse(data);
+            console.log(data);
+
+            var weather = "bring a ";
+            switch (data.weather){
+                case 'Snow': 
+                    weather += "hat, ear cups, scarf and winter boots";
+                    break;
+                case 'Rain':
+                    weather += "umbrella"
+                    break;
+                default:
+                    weather = "Enjoy the weather";
+            }
+
+            res.send({
+                'fulfillmentText': weather,
+                'fulfillmentMessages': [{"text": {"text": ["Montreal"]}}],
+                'source': 'This is the source'
+            });
+        });
+    }).on('error', (err) => {
+        console.log('Failed');
+            return;
     });
 });
 // [END hello_world]
