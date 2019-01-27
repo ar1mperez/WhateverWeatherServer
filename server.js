@@ -24,12 +24,12 @@ app.get('/',function(req,res){
 });
 
 // Send Style, do not change
-app.get('/style.css',function(req,res){
+app.get('/style.css', (req, res) => {
     //Feel free to change the contents of style.css to prettify your Web app
     res.sendFile(path.join(__dirname+'/public/style.css'));
 });
 
-app.post('/ghome', function(req,res){
+app.post('/ghome', (req,res) => {
     res.send({
         'fulfillmentText': ' ',
         'fulfillmentMessages': [{"text": {"text": ["Swag Money"]}}],
