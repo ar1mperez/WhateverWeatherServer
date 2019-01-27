@@ -2,10 +2,10 @@ const http = require('http');
 
 const weatherApi = 'http://api.openweathermap.org/data/2.5/weather?appid=47f10729a078ec6afee5311181889ab9&q=';
 const connectionString = 'whateverweather:us-east1:whateverweather';
+const mysql = require('mysql');
 
 function getCity() {
-    /*const mysql = require('mysql');
-    var con = mysql.createConnection({
+    /*var con = mysql.createConnection({
         host: '',
         user: '',
         password: ''
@@ -33,7 +33,7 @@ function kelvinToCelsius(k) {
 }
 
 function calculateEffectiveWeather(temp, temperatureData) {
-    if (temp <=5 && temp > -50) {
+    if (temp <= 5 && temp > -50) {
         temp = 13.12 + 0.6215 * temp - 11.37 * Math.pow(temperatureData.wind.speed, 0.16) + 0.3965 * temp * Math.pow(temperatureData.wind.speed, 0.16);
     }
     else if (temp >= 26.7) {
