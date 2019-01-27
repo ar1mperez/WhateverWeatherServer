@@ -43,12 +43,12 @@ app.post('/ghome', (req,res) => {
             data = JSON.parse(data);
             console.log(data);
 
-            var weather = "bring a ";
+            var weather = "";
             switch (data.weather){
-                case 'Snowing': 
+                case 'Snow': 
                     weather += "hat, ear cups, scarf and winter boots";
                     break;
-                case 'Raining':
+                case 'Rain':
                     weather += "umbrella"
                     break;
                 default:
@@ -57,11 +57,24 @@ app.post('/ghome', (req,res) => {
 
             var walk = "";
             if (data.baseTemperature >= 25){
-                walk +=  "This is the perfect day to walk to work."
+                walk +=  "This is the perfect day to walk to work.";
+            } else if (data.baseTemperature < 5) {
+                walk +=  "This is the perfect day to stay in.";
+
+            }
+
+            var topLayers = "";
+            for (var i = 0; i < data.topLayers.length; i++) {
+                topLayers += data.topLayers[i].Name + ", ";
+            }
+
+            var bottomLayers = "";
+            for (var i = 0; i < data.bottomLayers.length; i++) {
+                bottomLayers += data.bottomLayers[i].Name + ", ";
             }
 
             res.send({
-                'fulfillmentText': "Today, in " + data.city + ". It will be " + data.weather + " at a temperature of " + data.baseTemperature + " celcius. Before you go out, you will need to " + weather + ", " + data.topLayers[1].Name + ", " + data.bottomLayers[1].Name + ". " + walk,
+                'fulfillmentText': "Today, in " + data.city + ". It will be " + data.weather + " at a temperature of " + data.baseTemperature + " celcius. Before you go out, you will need to bring a " + topLayers + bottomLayers + weather + ". " + walk,
                 'fulfillmentMessages': [{"text": {"text": [data.city]}}],
                 'source': 'This is the source'
             });
