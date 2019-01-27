@@ -73,7 +73,12 @@ $( document ).ready(function() {
     if (data.weather == "Raining") {
       //let text = document.createElement("h4");
       //textDiv.append()
-      textDiv.innerHTML+="<h4> It's raining, bring an umbrella! <img src = 'images/umbrella.png'/></h4>";
+        textDiv.innerHTML+="<h4> It's raining, bring an umbrella! <img src = 'images/umbrella.png'/></h4>";
+    }
+
+    else if (data.baseTemperature >= 25 && data.weather != "Raining") {
+        textDiv.innerHTML+="<h4> It's beautiful outside, have you considered walking to work? <img src = 'images/hiker.png'/></h4>";
+
     }
     /*
     imgContainer.innerHTML +=
