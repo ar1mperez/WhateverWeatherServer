@@ -46,7 +46,16 @@ function getCountry() {
 } 
 
 function getIdealTemp() {
-    return 21;
+    //return 21;
+    return new Promise(function (resolve, reject) {
+        var con = openDbConnection();
+        
+        var sql = 'SELECT * FROM Configuration WHERE Name = \'Ideal Temperature\';';
+        con.query(sql, function (error, results, fields) {
+            if (error) return reject(error);
+            resolve(results[0]);
+        });
+    });
 }
 
 function kelvinToCelsius(k) {
@@ -78,6 +87,8 @@ function getClothes() {
 }
 
 module.exports = {
+    const maxVariance = 2;
+    
     compute: function (req, res) {
 
         getCity().then(function (cityRow) {
@@ -104,12 +115,21 @@ module.exports = {
                         
                         console.log(targetN);
                         
-                        //var layers = { null, null, null };
-                        getClothes().then(function (clothesRows) {
-                            console.log(clothesRows);
-                        });
                         
-                        //for (var i = 0; i < 
+                        getClothes().then(function (clothesRows) {
+                            var layers = [
+                                [ [], [], [] ],   // tops
+                                [ [], [], [] ]    // bottoms
+                            ];
+                            
+                            for (var i = 0; i < clothesRows.length; i++) {
+                                layers[(i < 3) ? 0 : 1][clothesRows[i].TypeID % 3].push(clothesRows[i]);
+                            }
+                            
+                            console.log(layers);
+                        }).catch(function (err) {
+                            console.log(err);
+                        });
                         
                         resultObj = {
                             'city' : cityRow.Value,
@@ -134,9 +154,6 @@ module.exports = {
                                 null
                             ],
                         };
-                        /*console.log(weatherData);
-                        console.log();
-                        console.log(resultObj);*/
                         res.status(200).send(resultObj);
                     });
                 }).on('error', (err) => {
