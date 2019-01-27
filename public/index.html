@@ -3,8 +3,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
   </head>
 
   <body>
@@ -14,18 +15,35 @@
 
     <div class = "underline-box"></div>
 
-    <div class = "weather-box">
-      <img src = "images/sweater.png" class="rounded mx-auto d-block embed-responsive-16by9 clothing-image"/>
+    <div id ="clothes-container" class = "image-container text-center">
+
+      <div class = "weather-box">
+        <img src = "images/jacket-alt.png" class="rounded mx-auto d-block embed-responsive-16by9 clothing-image"/>
+      </div>
+
+      <div class = "weather-box">
+        <img src = "images/sweater.png" class="rounded mx-auto d-block embed-responsive-16by9 clothing-image"/>
+      </div>
+
+      <div class = "weather-box">
+        <img src = "images/jeans.png" class="rounded mx-auto d-block embed-responsive-16by9 clothing-image"/>
+      </div>
+
+
+
     </div>
 
     <div class = "weather-description text-center">
-      <h3>It is 5°C outside</h3>
+      <h3>It is 5°C in Quebec City</h3>
       <h4> You should wear a sweater! </h4>
+      <h4> It's raining, bring an umbrella! <img src = "images/umbrella24.png"/></h4>
 
     </div>
 
 
   </body>
+
+  <script src="/index.js"></script>
 
 
 </html>
