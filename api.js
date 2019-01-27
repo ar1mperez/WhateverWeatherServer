@@ -100,7 +100,10 @@ module.exports = {
 
                     resp.on('end', () => {
                         weatherData = JSON.parse(weatherData);
-                        const idealTemp = getIdealTemp();
+                        //const idealTemp = getIdealTemp();
+                        getIdealTemp().then(function (idealTemp) {
+                        idealTemp = parseInt(idealTemp.Value);
+                        console.log(idealTemp);
                         
                         //console.log(weatherData);
 
@@ -180,34 +183,23 @@ module.exports = {
                                 }
                             }
                             
+                            console.log(weatherData);
+                            resultObj = {
+                                'city' : cityRow.Value,
+                                'weather': weatherData.weather[0].main,
+                                'targetTemperature': idealTemp,
+                                'achievedTemperature': calculateEffectiveWeather(kelvinToCelsius(weatherData.main.temp), weatherData) + Math.abs(configurations[0][0].reduce(function (total, val) { return total + val.IncTemp; })),
+                                'baseTemperature': kelvinToCelsius(weatherData.main.temp),
+                                'topLayers': configurations[0][0],
+                                'bottomLayers': configurations[1][0]
+                            };
+                            console.log(resultObj);
+                            res.status(200).send(resultObj);
+                            
                         }).catch(function (err) {
                             console.log(err);
                         });
-                        
-                        resultObj = {
-                            'city' : cityRow.Value,
-                            'weather': 'Clouds',
-                            'targetTemperature': 21,
-                            'achievedTemperature': 21,
-                            'baseTemperature': 17,
-                            'topLayers': [
-                                null,
-                                {
-                                    'Name': 'Red Long-Sleeved Shirt',
-                                    'TempInc': 2
-                                },
-                                null
-                            ],
-                            'bottomLayers': [
-                                null,
-                                {
-                                    'Name': 'Big Blue Pants',
-                                    'TempInc': 2
-                                },
-                                null
-                            ],
-                        };
-                        res.status(200).send(resultObj);
+                    });
                     });
                 }).on('error', (err) => {
                     console.log('Failed');
