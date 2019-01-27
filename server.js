@@ -31,7 +31,11 @@ app.get('/style.css',function(req,res){
 
 app.get('/ghome', function(req,res){
 
-    res.send({fulfillmentMessage: [{"text": {"text": ["Swag Money"]}}]});
+    res.send({
+        'fulfillmentText': ' ',
+        'fulfillmentMessages': [{"text": {"text": ["Swag Money"]}}],
+        'source': ''
+    });
 });
 // [END hello_world]
 const api = require('./api');
