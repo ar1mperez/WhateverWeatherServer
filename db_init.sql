@@ -16,7 +16,7 @@ CREATE TABLE `Types` (
 CREATE TABLE Clothes (
 	ID int NOT NULL auto_increment,
     `Name` nvarchar(50),
-    TempInc int,
+    TempInc float,
     TypeID int,
     PRIMARY KEY(ID),
     FOREIGN KEY(TypeID) REFERENCES `Types` (ID)
@@ -42,29 +42,29 @@ INSERT INTO `Types` VALUES(5, 'Bottom');
 INSERT INTO `Types` VALUES(6, 'Overpants');
 
 -- Undershirts 0.5 - 3
-INSERT INTO Clothes VALUES(10, 'Tank Top', 50, 1);
-INSERT INTO Clothes VALUES(11, 'T-Shirt', 200, 1);
+INSERT INTO Clothes VALUES(10, 'Winter Jacket', 0.5, 1);
+INSERT INTO Clothes VALUES(11, 'T-Shirt', 2.0, 1);
 
 -- Overshirts 3.5 - 6
-INSERT INTO Clothes VALUES(20, 'Sweater', 500, 2);
-INSERT INTO Clothes VALUES(21, 'Cardigan', 350, 2);
-INSERT INTO Clothes VALUES(22, 'Zip-Up Sweatshirt', 450, 2);
-INSERT INTO Clothes VALUES(23, 'Hoodie', 500, 2);
+INSERT INTO Clothes VALUES(20, 'Sweater', 5.0, 2);
+INSERT INTO Clothes VALUES(21, 'Cardigan', 3.5, 2);
+INSERT INTO Clothes VALUES(22, 'Zip-Up Sweatshirt', 4.5, 2);
+INSERT INTO Clothes VALUES(23, 'Hoodie', 5.0, 2);
 
 -- Coats/Jackets 6.5 - 11 +
-INSERT INTO Clothes VALUES(30, 'Leather Jacket', 650, 3);
-INSERT INTO Clothes VALUES(31, 'Winter Coat', 1100, 3);
+INSERT INTO Clothes VALUES(30, 'Leather Jacket', 6.5, 3);
+INSERT INTO Clothes VALUES(31, 'Winter Coat', 11.0, 3);
 
 -- Leggings 
-INSERT INTO Clothes VALUES(40, 'Cotton Leggings', 250, 4);
+INSERT INTO Clothes VALUES(40, 'Cotton Leggings', 2.5, 4);
 
 -- Bottoms
-INSERT INTO Clothes VALUES(50, 'Shorts', 350, 5);
-INSERT INTO Clothes VALUES(51, 'Trousers', 400, 5);
-INSERT INTO Clothes VALUES(52, 'Jeans', 500, 5);
+INSERT INTO Clothes VALUES(50, 'Shorts', 3.5, 5);
+INSERT INTO Clothes VALUES(51, 'Trousers', 4.0, 5);
+INSERT INTO Clothes VALUES(52, 'Jeans', 5.0, 5);
 
 -- Overpants
-INSERT INTO Clothes VALUES(60, 'Snowpants', 1100, 6);
+INSERT INTO Clothes VALUES(60, 'Snowpants', 11.0, 6);
 
 -- Configs
 INSERT INTO Configuration VALUES(1, 'City', 'Montreal');
