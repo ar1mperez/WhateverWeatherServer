@@ -34,6 +34,9 @@ app.get('/ghome', function(req,res){
   res.send({fulfillmentText: "You should wear swag money"});
 });
 // [END hello_world]
+const api = require('./api');
+//console.log(api);
+app.get('/api/', api.compute);
 
 if (module === require.main) {
   // [START server]
