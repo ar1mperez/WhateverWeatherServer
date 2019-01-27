@@ -40,6 +40,10 @@ $( document ).ready(function() {
           newImage.classList.add("clothing-image");
           imgContainer.append(newImage);
           div.append(imgContainer);
+
+          let txt = document.getElementById("clothing-suggest");
+          txt.innerHTML += data.topLayers[i].Name + ", ";
+
       }
     }
 
@@ -58,6 +62,9 @@ $( document ).ready(function() {
           newImage.classList.add("clothing-image");
           imgContainer.append(newImage);
           div.append(imgContainer);
+
+          let txt = document.getElementById("clothing-suggest");
+          txt.innerHTML += data.bottomLayers[i].Name + " ";
       }
     }
 
