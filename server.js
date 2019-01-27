@@ -25,13 +25,13 @@ app.get('/',function(req,res){
 
 // Send Style, do not change
 app.get('/style.css',function(req,res){
-  //Feel free to change the contents of style.css to prettify your Web app
-  res.sendFile(path.join(__dirname+'/public/style.css'));
+    //Feel free to change the contents of style.css to prettify your Web app
+    res.sendFile(path.join(__dirname+'/public/style.css'));
 });
 
 app.get('/ghome', function(req,res){
 
-  res.send({fulfillmentMessage: [{"text": {"text", ["Swag Money"]}}]});
+    res.send({fulfillmentMessage: [{"text": {"text": ["Swag Money"]}}]});
 });
 // [END hello_world]
 const api = require('./api');
@@ -39,13 +39,13 @@ const api = require('./api');
 app.get('/api/', api.compute);
 
 if (module === require.main) {
-  // [START server]
-  // Start the server
-  const server = app.listen(process.env.PORT || 8080, () => {
-    const port = server.address().port;
-    console.log(`App listening on port ${port}`);
-  });
-  // [END server]
+    // [START server]
+    // Start the server
+    const server = app.listen(process.env.PORT || 8080, () => {
+        const port = server.address().port;
+        console.log(`App listening on port ${port}`);
+    });
+    // [END server]
 }
 
 module.exports = app;
