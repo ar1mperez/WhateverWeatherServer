@@ -192,8 +192,8 @@ module.exports = {
                                     'targetTemperature': Number(idealTemp).toFixed(1),
                                     'achievedTemperature': Number(calculateEffectiveWeather(kelvinToCelsius(weatherData.main.temp), weatherData) + Math.abs(configurations[0][0].reduce(function (total, val) { return total + val.IncTemp; }))).toFixed(1),
                                     'baseTemperature': Number(kelvinToCelsius(weatherData.main.temp)).toFixed(1),
-                                    'topLayers': configurations[0],
-                                    'bottomLayers': configurations[1]
+                                    'topLayers': configurations[0][0],
+                                    'bottomLayers': configurations[1][0]
                                 };
                                 console.log(resultObj);
                                 res.status(200).send(resultObj);
