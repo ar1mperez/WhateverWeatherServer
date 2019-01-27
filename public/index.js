@@ -17,29 +17,49 @@ $( document ).ready(function() {
       }
   })
   .done (function(data) {
+    console.log(data);
     let initialText = document.getElementById('initial-text');
     console.log(data.weather);
-    initialText.innerHTML += data.temp + "°C in " + data.city;
+    initialText.innerHTML += data.baseTemperature + "°C in " + data.city;
 
 
     let i = 0;
 
-    //for (i = 0; i < 3 i ++) {
+    for (i = 0; i < 3; i ++) {
+      if(data.topLayers[i] != null) {
+          let div = document.getElementById('clothes-container');
+          let imgContainer = document.createElement('div');
+          imgContainer.classList.add('weather-box');
 
-        let div = document.getElementById('clothes-container');
-        let imgContainer = document.createElement('div');
-        imgContainer.classList.add('weather-box');
+          let newImage = document.createElement("img");
+          newImage.src = "images/"+data.topLayers[i].TempInc+".png";
+          newImage.classList.add("rounded");
+          newImage.classList.add("mx-auto");
+          newImage.classList.add("d-block");
+          newImage.classList.add("embed-responsive-16by9");
+          newImage.classList.add("clothing-image");
+          imgContainer.append(newImage);
+          div.append(imgContainer);
+      }
+    }
 
-        let newImage = document.createElement("img");
-        newImage.src = "images/1.png";//+data.tops[i];
-        newImage.classList.add("rounded");
-        newImage.classList.add("mx-auto");
-        newImage.classList.add("d-block");
-        newImage.classList.add("embed-responsive-16by9");
-        newImage.classList.add("clothing-image");
-        imgContainer.append(newImage);
-        div.append(imgContainer);
-    //}
+    for (i = 0; i < 3; i ++) {
+      if(data.bottomLayers[i] != null) {
+          let div = document.getElementById('clothes-container');
+          let imgContainer = document.createElement('div');
+          imgContainer.classList.add('weather-box');
+
+          let newImage = document.createElement("img");
+          newImage.src = "images/"+data.bottomLayers[i].TempInc+".png";
+          newImage.classList.add("rounded");
+          newImage.classList.add("mx-auto");
+          newImage.classList.add("d-block");
+          newImage.classList.add("embed-responsive-16by9");
+          newImage.classList.add("clothing-image");
+          imgContainer.append(newImage);
+          div.append(imgContainer);
+      }
+    }
     /*
     imgContainer.innerHTML +=
     '<div class="weather-box">\

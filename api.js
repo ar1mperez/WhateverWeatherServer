@@ -22,7 +22,7 @@ function getCity() {
 
 function getCountry() {
     return 'CA';
-} 
+}
 
 function getIdealTemp() {
     return 21;
@@ -38,9 +38,9 @@ function calculateEffectiveWeather(temp, temperatureData) {
     }
     else if (temp >= 26.7) {
         // Humidex, probably won't need it
-        //temp = 
+        //temp =
     }
-    
+
     return temp;
 }
 
@@ -50,16 +50,16 @@ function getClothes() {
         user: 'ww',
         password: 'Password1'
     });
-    
+
     con.connect((err) => {
         if (err) throw err;
         console.log('Connected');
     });
-    
+
     var sql = "SELECT * FROM Clothes";
     con.query(sql, function (error, results, fields) {
         if (error) throw error;
-        
+
         console.log(results);
     });
 }
@@ -81,17 +81,17 @@ module.exports = {
                 var baseTemp = Number(kelvinToCelsius(weatherData.main.temp).toFixed(1));
                 var effectiveTemp = calculateEffectiveWeather(baseTemp, weatherData);
                 var deltaTemp = idealTemp - effectiveTemp;
-                
+
                 var targetN = Number(deltaTemp / 2).toFixed(1);
-                
+
                 console.log(targetN);
-                
+
                 //var layers = { null, null, null };
                 //var clothes = getClothes();
-                
-                //for (var i = 0; i < 
-                
-                
+
+                //for (var i = 0; i <
+
+
 
                 /*resultObj = {
                     'city': weatherData.name,
@@ -101,7 +101,7 @@ module.exports = {
                     //'data': weatherData.main,
                     'wind': weatherData.wind
                 };*/
-                
+
                 resultObj = {
                     'city' : 'Montreal',
                     'weather': 'Clouds',
@@ -120,7 +120,7 @@ module.exports = {
                         null,
                         {
                             'Name': 'Big Blue Pants',
-                            'TempInc': 2
+                            'TempInc': 6
                         },
                         null
                     ],
