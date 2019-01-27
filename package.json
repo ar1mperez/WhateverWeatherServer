@@ -2,6 +2,7 @@
   "dependencies": {
     "@google-cloud/storage": "^2.3.4",
     "express": "^4.16.4",
+    "mysql": "^2.16.0",
     "path": "^0.12.7"
   }
 }
