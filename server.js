@@ -30,10 +30,8 @@ app.get('/style.css',function(req,res){
 });
 
 app.get('/ghome', function(req,res){
-  let resultObj = {
-    "fulfillmentText": "You should wear swag money";
-  }
-  res.send(resultObj);
+
+  res.send({fulfillmentText: "You should wear swag money"});
 });
 // [END hello_world]
 
