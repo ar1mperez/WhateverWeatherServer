@@ -45,19 +45,24 @@ app.post('/ghome', (req,res) => {
 
             var weather = "bring a ";
             switch (data.weather){
-                case 'Snow': 
+                case 'Snowing': 
                     weather += "hat, ear cups, scarf and winter boots";
                     break;
-                case 'Rain':
+                case 'Raining':
                     weather += "umbrella"
                     break;
                 default:
-                    weather = "Enjoy the weather";
+                    weather = "";
+            }
+
+            var walk = "";
+            if (data.baseTemperature >= 25){
+                walk +=  "This is the perfect day to walk to work."
             }
 
             res.send({
-                'fulfillmentText': weather,
-                'fulfillmentMessages': [{"text": {"text": ["Montreal"]}}],
+                'fulfillmentText': "Today, in " + data.city + ". It will be " + data.weather + " at a temperature of " + data.baseTemperature + " celcius. Before you go out, you will need to " + weather + ", " + data.topLayers[1].Name + ", " + data.bottomLayers[1].Name + ". " + walk,
+                'fulfillmentMessages': [{"text": {"text": [data.city]}}],
                 'source': 'This is the source'
             });
         });
