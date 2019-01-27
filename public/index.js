@@ -17,6 +17,10 @@ $( document ).ready(function() {
       }
   })
   .done (function(data) {
+    let initialText = document.getElementById('initial-text');
+    console.log(data.weather);
+    initialText.innerHTML += data.temp + "°C in " + data.city;
+
 
     /*
     let div = document.getElementById('clothes-container');

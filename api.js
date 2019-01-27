@@ -33,35 +33,36 @@ function kelvinToCelsius(k) {
 }
 
 function calculateEffectiveWeather(temperatureData) {
-    //const 
-    
+    //const
+
     var effectiveWeather = temperatureData.temperature;
-    
+
 }
 
 module.exports = {
     compute: function (req, res) {
         var weatherData = '';
-        
+
         console.log([weatherApi, getCity(), '.', getCountry()].join(''));
-        
+
         http.get([weatherApi, getCity()].join(''), (resp) => {
             resp.on('data', (chunk) => {
                 weatherData += chunk;
             });
-            
+
             resp.on('end', () => {
                 weatherData = JSON.parse(weatherData);
-                
+
                 //const targetTemperature = getIdealTemp();
-                
+
                 var weather = weatherData.weather[0].main;
                 var effectiveWeather = calculateEffectiveWeather(weatherData.main);
-                
+
                 resultObj = {
                     'city': weatherData.name,
                     'weather': weatherData.weather[0].main,
-                    //'targetTemperature': 
+                    "temp": Number(kelvinToCelsius(weatherData.main.temp).toFixed(1)),
+                    //'targetTemperature':
                     //'data': weatherData.main,
                     'wind': weatherData.wind
                 };
