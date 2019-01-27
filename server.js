@@ -31,9 +31,9 @@ app.get('/style.css',function(req,res){
 
 app.post('/ghome', function(req,res){
     res.send({
-        'fulfillmentText': ' ',
+        'fulfillmentText': 'This is fulfillment text',
         'fulfillmentMessages': [{"text": {"text": ["Montreal"]}}],
-        'source': ''
+        'source': 'This is the source'
     });
 });
 // [END hello_world]
